@@ -46,7 +46,7 @@ int main(int argc, char * argv[]){
     cout << "Enter the Legv8 file name: ";
     //string filename = "legv8.txt";
     string filename;// = "sample.txt";
-    //cin >> filename;
+    cin >> filename;
 
     cout << "Do you wish to initialize the memory? (y/n): ";
     char init = ' ';
