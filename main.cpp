@@ -18,29 +18,6 @@ void execD1(int type);
 void execD2(int type);
 void execBL(int type);
 void execBR(int type);
-/*
-   map<string,int> commandTypes = {
-//R format
-{"ADD",0},{"AND",1},{"ORR",2},{"EOR",3},{"SUB",4},{"LSR",5},{"LSL",6},
-//R flags format
-{"ADDS",7},{"ANDS",8},{"SUBS",9},
-//I format
-{"ORRI",10},{"EORI",11},{"ADDI",12},{"SUBI",13},
-//I flags format
-{"ADDIS",14},{"SUBIS",15},{"ANDIS",16},
-//B format
-{"B",17},
-//CB format
-{"B.",18},{"CBZ",19},{"CBNZ",20},
-//D format
-{"STUR",21},{"LDUR",22},
-//D variant format
-{"STURB",23},{"LDURB",24},{"STURH",25},{"LDURH",26},{"STURW",27},{"LDURSW",28},{"STXR",29},{"LDXR",30},
-//BL statement
-{"BL",31},
-//BR statement
-{"BR",32}
-};*/
 
 int mode = 0;
 
@@ -55,7 +32,7 @@ int currentSFlagInstr = -1;
 int ConditionReg1 = 0;
 int ConditionReg2 = 0;
 
-int BLcounter = 0;
+//int BLcounter = 0;
 
 int Zero = 0, Overflow = 0, Negative = 0, Carry = 0;
 
@@ -66,16 +43,16 @@ int main(int argc, char * argv[]){
         STACK[i] = 0;
     }
 
-	cout << "Enter the Legv8 file name: ";
-	string filename = "legv8.txt";
-	//string filename = "sample.txt";
-	//cin >> filename;
+    cout << "Enter the Legv8 file name: ";
+    //string filename = "legv8.txt";
+    string filename;// = "sample.txt";
+    //cin >> filename;
 
-	cout << "Do you wish to initialize the memory? (y/n): ";
-	char init = ' ';
-	cin >> init;
+    cout << "Do you wish to initialize the memory? (y/n): ";
+    char init = ' ';
+    cin >> init;
 
-	if(init == 'y'){
+    if(init == 'y'){
         int initNum = 0;
         cout << "How many memory spaces will you initialize? ";
         cin >> initNum;
@@ -84,7 +61,7 @@ int main(int argc, char * argv[]){
             cin >> MEM[i];
             cout << endl;
         }
-	}
+    }
 
     cout << "Select execution modes: (1) Single step\t(2) Run to completion\n";
     cin >> mode;
@@ -108,10 +85,16 @@ void findLabel(string label){
         else
             N++;
     }
+    /*
     if(N < PGM.size()){
         cout << label << " is at: " << N << endl;
     }
     else{
+        cout << "Label not found.\n";
+        N = PGM.size();
+    }
+    */
+    if(N < 1 || N > PGM.size()){
         cout << "Label not found.\n";
         N = PGM.size();
     }
@@ -120,25 +103,29 @@ void findLabel(string label){
 void parse(string filename){
     ifstream inputFile(filename);
     string line;
-    int number = 0;
+
+    Instruction filler;
+    PGM.push_back(filler);
+
+    int number = 1;
     while( getline(inputFile,line) ){
-        cout << line << endl;
+        //cout << line << endl;
         Instruction in;
         in.parse(line, number);
         PGM.push_back(in);
-        cout << endl;
+        //cout << endl;
         number++;
     }
-    cout << "Total lines: " << PGM.size() << endl;
+    //cout << "Total lines: " << PGM.size() << endl;
 }
 
 void execCommand(){
-    while( N < PGM.size() ){
+    while( N > 0 && N < PGM.size() ){
         int type = PGM[N].type;
 
-        //if(mode == 1){
+        if(mode == 1){
             cout << "Executing line " << PGM[N].lineNumber << ": " << PGM[N].fullLine<< endl; 
-        //}
+        }
 
         if( type < 7 ){
             //R format
@@ -191,7 +178,6 @@ void execCommand(){
             int regToPrint = -1;
             cout << "Select print options: (1) Specific register\t(2) All registers\n";
             cin >> printMode;
-            cout << endl;
             while( printMode != 1 && printMode != 2 ){
                 cout << "Error in input. Please try again.\nSelect print options: (1) Specific register\t(2) All registers\n";
                 cin >> printMode;
@@ -216,6 +202,8 @@ void execCommand(){
                     cout << "Error in print input\n";
                     break;
             }
+            cout << endl;
+            cout << endl;
         }
     }
 
@@ -648,17 +636,18 @@ void execD2(int type){
 }
 
 void execBL(int type){
-    BLcounter++;
+    //BLcounter++;
     RFILE[30] = N+1;
     findLabel(PGM[N].paramLabel);
 }
 
 void execBR(int type){
-    if(BLcounter <= 0){
-        N = PGM.size();
-    }
-    else{
-        cout << BLcounter-- << endl << endl;
-        N = RFILE[30];
-    }
+    /* if(BLcounter <= 0){
+       N = PGM.size();
+       }
+       else{
+       cout << BLcounter-- << endl << endl;
+       */    
+    N = RFILE[30];
+    //}
 }

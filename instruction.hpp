@@ -52,24 +52,24 @@ struct Instruction{
 		if (scope != string::npos){
 			ss >> label;
 			label = label.substr(0, label.size()-1);
-			cout << "Label is " << label << endl;
+			//cout << "Label is " << label << endl;
 		}
-		else
-			cout << "No label found\n";
+		//else
+		//	cout << "No label found\n";
 
 		ss >> cmd;
-		cout << "CMD is: " << cmd << endl;
+		//cout << "CMD is: " << cmd << endl;
         if( commandTypes.find(cmd) != commandTypes.end() ){
             type = commandTypes[cmd];
-            cout << "Type: " << type << endl;
+            //cout << "Type: " << type << endl;
         }
         else{
             type = -1;
-            cout << "Unkown command type" << endl;
+            //cout << "Unkown command type" << endl;
         }
 
         if( (type >= 18 && type <= 30) || type == 39){
-            cout << "Banch type\n";
+            //cout << "Banch type\n";
             size_t commaIdx = instr.find(",");
             //2 params
             if (commaIdx != string::npos){
@@ -96,7 +96,7 @@ struct Instruction{
             ss >> paramLabel;
         }
         else{
-            cout << "Not branch type\n";
+            //cout << "Not branch type\n";
             char p;
             int num = -1;
             while( ss >> p ){
@@ -114,6 +114,7 @@ struct Instruction{
                 }
             }
         }
+        /*
         for( int i = 0; i < params.size(); i++)
             cout << "param is num: " << params[i] << endl;
 
@@ -123,7 +124,7 @@ struct Instruction{
         else{
             cout << "There is no param label\n";
         }
-
+        */
 
     }
 
