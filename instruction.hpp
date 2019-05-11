@@ -4,7 +4,6 @@
 #include <sstream>
 #include <ctype.h>
 using namespace std;
-
 map<string,int> commandTypes = {
 	//R format
 	{"ADD",0},{"AND",1},{"ORR",2},{"EOR",3},{"SUB",4},{"LSR",5},{"LSL",6},

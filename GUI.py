@@ -1,13 +1,14 @@
-currentfile = ""
-filetext = "No File Selected"
-regarray = [0]*32
-print(len(regarray))
 from os import path
 from tkinter import filedialog
 from tkinter import *
 from tkinter import Text
+import sys
+currentfile = ""
+filetext = "No File Selected"
+regarray = [0]*32
+mem = [0] * 1000
+
 window = Tk()
-choosefile = False
 window.title("CS351 Final Project")
 lb11 = Label(window, text="",bg="#8cade2",relief=GROOVE)
 lb11.grid(column=0, row=0,rowspan=1,columnspan=1,sticky=W)
@@ -16,6 +17,36 @@ window.geometry('1000x1000')
 window.configure(bg="#8cade2")
 
 from os import path
+
+def updateinfo(filename):
+    global regarray
+    global mem
+    final = False
+    if filename=="out.txt":
+        final = True
+    f = open(filename,'w+')
+    if final:
+        f.write("File: ")
+    f.write(currentfile)
+    f.write("\n")
+
+    if final:
+        f.write("Register Values: ")
+    outreg = str(regarray).strip("[")
+    outreg = outreg.strip("]")
+    if not final:
+        outreg = outreg.replace(',','')
+    f.write(outreg)
+    f.write("\n")
+    
+    if final:
+        f.write("Memory Values: ")
+    outmem = str(mem).strip("[")
+    outmem= outmem.strip("]")
+    if not final:
+        outmem = outmem.replace(',', '')
+    f.write(outmem)
+
 def choosefile():
     global currentfile
     global filetext
@@ -24,6 +55,8 @@ def choosefile():
     filetext = "Current file: " + currentfile
     global lb11
     lb11.configure(text=filetext)
+    updateinfo("info.txt")
+    print(currentfile)
 
 
 
@@ -38,20 +71,22 @@ def updateregs(regarray):
         text = curreg + " "+str(regarray[i])
         new = Label(window,text=text,bg="#5981c1",anchor=W,width=20,bd=5,relief=RIDGE)
         new.grid(column=50,row=2 +i,sticky=E,padx=50)
+    updateinfo("info.txt")
 
 def initializemem():
+    global mem
     output = txt1.get()
     output = output.split(" ")
-    output = list(map(int,output))
+    if output[0] != '':
+        output = list(map(int,output))
+    else:
+        return
 
     # First value is an index, last is a value
-    print(output)
-    mem = [0] * 1000
     for i in range(0,len(output),2):
         index = output[i]
         mem[index] = output[i+1]
-
-    print(mem[:50])
+    updateinfo("info.txt")
 
 
 def textentry():
@@ -65,6 +100,13 @@ def textentry():
 
     sbmt = Button(window, text="Save as File", command=writetofile)
     sbmt.grid(column=10, row=80,sticky=W+N)
+
+def quit():
+    updateinfo("out.txt")
+    window.destroy()
+updateregs(regarray)
+
+
 
 
 lb11 = Label(window, text=filetext,bg="#8cade2",relief=GROOVE)
@@ -83,9 +125,11 @@ btn4.grid(column=40,row=8,sticky=W)
 btn5 = Button(window, text="Step Run Current File",command=choosefile)
 btn5.grid(column=40,row=9,sticky=W)
 
+btn6 = Button(window,text="Write Data and Quit", command=quit)
+btn6.grid(column=40,row=10,sticky=W)
 
 btn3 = Button(window, text="Open File Editor",command=textentry)
-btn3.grid(column=40,row=10,sticky=W)
+btn3.grid(column=40,row=11,sticky=W)
 
 
 #zz =Button(window, text="Open File Editor",command=textentry)
@@ -94,7 +138,7 @@ btn3.grid(column=40,row=10,sticky=W)
 
 
 updateregs(regarray)
-
+updateinfo("info.txt")
 
 
 window.mainloop()
