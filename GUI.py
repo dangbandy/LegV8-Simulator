@@ -112,7 +112,8 @@ def choosefile(): # Chooses the file, but also runs the C++ Code
 
 
 def runC():
-    command_line = "./a.out"
+    print("Running",actualfile)
+    command_line = "make;./a.out"
     args = shlex.split(command_line)
     p = subprocess.Popen(args,shell=True)
 
@@ -225,7 +226,6 @@ def steprun():
 
 
     else:
-        print(cout)
         updatecommand(step)
         updateregs(cout[step])
         step+=1
