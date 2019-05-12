@@ -1,0 +1,6 @@
+Executing line 1: MAIN: ADDI X0, X0, #20
+20 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Executing line 2: SUBI X0, XMAIN: ADDI X0, X0, #20
+20 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Executing line 3: SUBI X0, X0, #10, #1
+10 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
