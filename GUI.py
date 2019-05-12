@@ -114,7 +114,7 @@ def choosefile(): # Chooses the file, but also runs the C++ Code
 
 def runC():
     print("Running",actualfile)
-    command_line = "rm -f a.out;make;./a.out"
+    command_line = "./a.out"
     args = shlex.split(command_line)
     p = subprocess.Popen(args,shell=True)
 
