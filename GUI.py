@@ -76,6 +76,7 @@ def readinfo(filename):
     global commands
     cout = []
     commands = []
+
     f = open(filename,"r+")
     lines = f.readlines()
     for i in range(0,len(lines),2):
@@ -113,7 +114,7 @@ def choosefile(): # Chooses the file, but also runs the C++ Code
 
 def runC():
     print("Running",actualfile)
-    command_line = "make;./a.out"
+    command_line = "rm -f a.out;make;./a.out"
     args = shlex.split(command_line)
     p = subprocess.Popen(args,shell=True)
 
