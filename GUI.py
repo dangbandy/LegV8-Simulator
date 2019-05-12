@@ -38,7 +38,7 @@ def updateinfo(filename):
         outreg = outreg.replace(',','')
     f.write(outreg)
     f.write("\n")
-    
+
     if final:
         f.write("Memory Values: ")
     outmem = str(mem).strip("[")

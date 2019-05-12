@@ -1,0 +1,26 @@
+
+
+PYTHON:
+	- Program runs, GUI pops up
+	- User selects file, initializes memory
+	- User selects "Run or Step Run"
+	- Python Creates a .txt "info" file with the file to run, register values, and memory values in it.
+	- C++ Portion executes
+
+C++: 
+
+	- Program reads the python "info" file, initializes memory and selects the file. 
+	- Program creates a .txt file for each step of execution with memory and register values in it.
+	- Python Portion Resumes
+
+PYTHON:
+	- If "Run" was selected, we will just read the very last output file, and update the memory and
+	  register values. 
+	- If "Step Run" was selected, the file will read and update mem/reg from the first file, and then create a
+	  "next step" button that will read/update from the next sequential file until we reach the last one. 
+
+
+
+
+Issues:
+I am pretty shaky on how to do pull of the multi-portion part of this. 
