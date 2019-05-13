@@ -642,6 +642,17 @@ void MainWindow::execD1(int type){
         default:
             cout << "Error\n";
     }
+    memoryList->clear();
+    for(int i = 0; i < 1000; i++){
+        QString r = QString("MEMORY[ %1 ] = ").arg(i);
+        QString val = QString::number(MEM[i]);
+        r += val;
+        memoryList->addItems( QStringList() << r);
+        //QListWidgetItem * currentItem = memoryList->item(i);
+        //currentItem->setFlags(currentItem->flags () | Qt::ItemIsEditable);
+    }
+    connect(memoryList, SIGNAL(itemClicked(QListWidgetItem *)), SLOT(itemClicked(QListWidgetItem *)));
+
     N++;
 }
 
@@ -741,7 +752,18 @@ void MainWindow::execD2(int type){
         default:
             cout << "Error\n";
     }
+    memoryList->clear();
+    for(int i = 0; i < 1000; i++){
+        QString r = QString("MEMORY[ %1 ] = ").arg(i);
+        QString val = QString::number(MEM[i]);
+        r += val;
+        memoryList->addItems( QStringList() << r);
+        //QListWidgetItem * currentItem = memoryList->item(i);
+        //currentItem->setFlags(currentItem->flags () | Qt::ItemIsEditable);
+    }
+    connect(memoryList, SIGNAL(itemClicked(QListWidgetItem *)), SLOT(itemClicked(QListWidgetItem *)));
 
+    N++;
 }
 
 void MainWindow::execBL(int type){
