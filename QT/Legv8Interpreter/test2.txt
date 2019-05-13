@@ -1,2 +1,0 @@
-MAIN: ADDI X0, X0, #10
-STUR X0, [X1, #0]

@@ -1,0 +1,2 @@
+MAIN: ADDI X0, X0, #90000
+STUR X0, [X1, #0]
