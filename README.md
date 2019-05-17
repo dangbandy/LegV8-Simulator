@@ -35,3 +35,5 @@ BL statement: BL
 
 BR statement: BR 
 
+# Authors
+Andy Dang, Sergio Hernandez, and Colin Dutra
