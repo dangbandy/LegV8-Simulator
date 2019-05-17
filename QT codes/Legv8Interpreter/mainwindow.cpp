@@ -118,7 +118,7 @@ void MainWindow::resetMem(){
         //QListWidgetItem * currentItem = memoryList->item(i);
         //currentItem->setFlags(currentItem->flags () | Qt::ItemIsEditable);
     }
-    connect(memoryList, SIGNAL(itemClicked(QListWidgetItem *)), SLOT(itemClicked(QListWidgetItem *)));
+    //connect(memoryList, SIGNAL(itemClicked(QListWidgetItem *)), SLOT(itemClicked(QListWidgetItem *)));
 }
 
 void MainWindow::parse(string filename){
@@ -866,7 +866,6 @@ bool MainWindow::saveAs()
 
 void MainWindow::about()
 {
-    //QMessageBox::aboutQt(this,"fuck");
     QMessageBox::information(this, tr("Guide"),
             tr("<font size = 5><b>About:</b></font><br>"
                "This program simulate the execution of a LegV8 program."
