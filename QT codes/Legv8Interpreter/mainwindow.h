@@ -57,8 +57,10 @@ private:
     QPlainTextEdit *textEdit;
     QListWidget *memoryList;
     QListWidget *registerList;
+    QListWidget *stackList;
     QDockWidget *registerDock;
     QDockWidget *memoryDock;
+    QDockWidget *stackDock;
 
     void parse(string filename);
     void resetMem();

@@ -1,0 +1,2 @@
+MAIN: ADDI X0, X0, #64
+LSR X1, X0, #1

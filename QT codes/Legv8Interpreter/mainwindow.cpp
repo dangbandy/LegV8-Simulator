@@ -75,6 +75,20 @@ void MainWindow::createDockWindows(){
     addDockWidget(Qt::RightDockWidgetArea, memoryDock);
     viewMenu->addAction(memoryDock->toggleViewAction());
 
+    stackDock = new QDockWidget(tr("Stack"), this);
+    stackDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+    stackList = new QListWidget(stackDock);
+    for(int i = 0; i < 1000; i++){
+        QString r = QString("STACK[ %1 ] = ").arg(i);
+        QString val = QString::number(MEM[i]);
+        r += val;
+        stackList->addItems( QStringList() << r);
+        //QListWidgetItem * currentItem = memoryList->item(i);
+        //currentItem->setFlags(currentItem->flags () | Qt::ItemIsEditable);
+    }
+    stackDock->setWidget(stackList);
+    addDockWidget(Qt::RightDockWidgetArea, stackDock);
+    viewMenu->addAction(stackDock->toggleViewAction());
 
     registerDock = new QDockWidget(tr("Registers Display"), this);
     registerList = new QListWidget(registerDock);
@@ -210,6 +224,7 @@ void MainWindow::execSingle(){
     }
 
 }
+
 void MainWindow::execCommand(){
     PGM.clear();
     for(int i = 0; i < 32; i++)
@@ -277,17 +292,16 @@ void MainWindow::execCommand(){
             execBR(type);
         }
         RFILE[31] = 0;
-        if(N < 1 || N > PGM.size()){
-            registerList->clear();
-            for(int i = 0; i < 32; i++){
-                QString r = QString("REGISTER[%1] = ").arg(i);
-                QString val = QString::number(RFILE[i]);
-                r += val;
-                qDebug() << r;
-                registerList->addItems(QStringList() << r);
-            }
-        }
 
+
+    }
+    registerList->clear();
+    for(int i = 0; i < 32; i++){
+        QString r = QString("REGISTER[%1] = ").arg(i);
+        QString val = QString::number(RFILE[i]);
+        r += val;
+        qDebug() << r;
+        registerList->addItems(QStringList() << r);
     }
     /*
        if( mode == 2 ){
@@ -332,6 +346,7 @@ void MainWindow::execR1(int type){
     j = PGM[N].params[1];
     k = PGM[N].params[2];
 
+    unsigned long long int tempShift = 0;
     switch(type){
     case 0://add
         RFILE[d] = RFILE[j] + RFILE[k];
@@ -349,10 +364,12 @@ void MainWindow::execR1(int type){
         RFILE[d] = RFILE[j] - RFILE[k];
         break;
     case 5://lsr
-        RFILE[d] = RFILE[j] >> k;
+        tempShift = RFILE[j];
+        RFILE[d] = tempShift >> k;
         break;
     case 6://lsl
-        RFILE[d] = RFILE[j] << k;
+        tempShift = RFILE[j];
+        RFILE[d] = tempShift << k;
         break;
     default:
         cout << "Error\n";
@@ -651,8 +668,17 @@ void MainWindow::execD1(int type){
         //QListWidgetItem * currentItem = memoryList->item(i);
         //currentItem->setFlags(currentItem->flags () | Qt::ItemIsEditable);
     }
-    connect(memoryList, SIGNAL(itemClicked(QListWidgetItem *)), SLOT(itemClicked(QListWidgetItem *)));
+    //connect(memoryList, SIGNAL(itemClicked(QListWidgetItem *)), SLOT(itemClicked(QListWidgetItem *)));
 
+    stackList->clear();
+    for(int i = 0; i < 1000; i++){
+        QString r = QString("STACK[ %1 ] = ").arg(i);
+        QString val = QString::number(MEM[i]);
+        r += val;
+        stackList->addItems( QStringList() << r);
+        //QListWidgetItem * currentItem = memoryList->item(i);
+        //currentItem->setFlags(currentItem->flags () | Qt::ItemIsEditable);
+    }
     N++;
 }
 
@@ -761,8 +787,17 @@ void MainWindow::execD2(int type){
         //QListWidgetItem * currentItem = memoryList->item(i);
         //currentItem->setFlags(currentItem->flags () | Qt::ItemIsEditable);
     }
-    connect(memoryList, SIGNAL(itemClicked(QListWidgetItem *)), SLOT(itemClicked(QListWidgetItem *)));
+    //connect(memoryList, SIGNAL(itemClicked(QListWidgetItem *)), SLOT(itemClicked(QListWidgetItem *)));
 
+    stackList->clear();
+    for(int i = 0; i < 1000; i++){
+        QString r = QString("STACK[ %1 ] = ").arg(i);
+        QString val = QString::number(MEM[i]);
+        r += val;
+        stackList->addItems( QStringList() << r);
+        //QListWidgetItem * currentItem = memoryList->item(i);
+        //currentItem->setFlags(currentItem->flags () | Qt::ItemIsEditable);
+    }
     N++;
 }
 
