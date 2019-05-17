@@ -16,13 +16,22 @@ Select the memory location you wish to modify. Enter the desired decimal value i
 # How to reset memory
 Select the reset icon to reset all memory values back to zero.The same applies for selecting Reset-Mem option in the toolbar's Build selections.
 
-#List of valid commands
+# List of valid commands
 R format: ADD, AND, ORR, EOR, SUB, LSR, LSL
+
 R flags format: ADDS, ANDS, SUBS
+
 I format: ORRI, EORI, ADDI, ANDI, SUBI
+
 I flags format: ADDIS, SUBIS, ANDIS
+
 B format: B, B.EQ, B.NE, B.LT, B.LE, B.GT, B.GE, B.LO, B.LS, B.HI, B.HS, CBZ, CBNZ
+
 D format: STUR, LDUR
+
 D variant format: STURB, LDURB, STURH, LDURH, STURW, LDURSW
+
 BL statement: BL
+
 BR statement: BR 
+
